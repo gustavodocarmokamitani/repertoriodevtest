@@ -11,6 +11,7 @@ export const DraftEditorContainer = styled.div`
 
   @media (max-width: 1200px) {
     flex-direction: column;
+    height: 100%;
   }
 `;
 
@@ -65,15 +66,15 @@ export const DraftEditor = styled.textarea`
   padding: 10px;
   resize: none;
   font-family: "Poppins";
-  
+
   &:focus {
     border: none;
     outline: none;
   }
 `;
 
-export const DraftViewContainer = styled.div` 
-   width: 45%;
+export const DraftViewContainer = styled.div`
+  width: 45%;
   display: flex;
   flex-direction: column;
   aling-items: center;
@@ -88,9 +89,8 @@ export const DraftViewContainer = styled.div`
 `;
 
 export const DraftViewContent = styled.div`
- width: 98%;
+  width: 98%;  
   overflow-y: auto;
-
 `;
 
 export const FontSelect = styled.select`

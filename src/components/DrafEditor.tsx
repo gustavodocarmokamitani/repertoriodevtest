@@ -2,21 +2,38 @@ import * as S from "./DraftEditor.styles";
 import save from "../assets/save.svg";
 import addParagraph from "../assets/addParagraph.svg";
 import textView from "../assets/textView.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Paragraph } from "./Paragraph";
+import { Draft } from "../models/Draft";
 
 const DraftEditor = () => {
-  const [draft, setDraft] = useState<{ id: number; text: string }[]>([]);
+  const [draft, setDraft] = useState<Draft[]>([]);
   const [paragraph, setParagraph] = useState<string>("");
   const [isViewing, setIsViewing] = useState(false);
 
+  useEffect(() => {
+    const savedDraft = localStorage.getItem("draft");
+    if (savedDraft) {
+      setDraft(JSON.parse(savedDraft));
+    }
+  }, []);
+
   const handleNewParagraph = () => {
-    if (paragraph.trim() === "") return;
-    const newParagraph = {
+    if (paragraph.trim() === "")
+      return alert(
+        "O campo está vazio. Digite um texto para adicionar um parágrafo."
+      );
+
+    const newParagraph: Draft = {
       id: draft.length + 1,
       text: paragraph,
     };
-    setDraft((prevDraft) => [...prevDraft, newParagraph]);
+
+    setDraft((prevDraft) => {
+      const updatedDraft = [...prevDraft, newParagraph];
+      localStorage.setItem("draft", JSON.stringify(updatedDraft));
+      return updatedDraft;
+    });
     setParagraph("");
   };
 
@@ -28,9 +45,7 @@ const DraftEditor = () => {
     if (draft.length > 0) {
       try {
         const savedText = draft.map((item) => item.text).join("\n");
-
         alert("Rascunho salvo!");
-        console.log("Rascunho salvo: ", savedText);
       } catch (error) {
         console.error("Erro ao salvar o rascunho", error);
       }
@@ -53,11 +68,7 @@ const DraftEditor = () => {
           <S.HeaderItem flex={4}>
             <S.ActionButton onClick={handleViewParagraph}>
               <img src={textView} />
-              <span className="tooltip">
-                {isViewing && draft.length > 0
-                  ? "Editar Texto"
-                  : "Visualizar Texto"}
-              </span>
+              <span className="tooltip">Visualizar Texto</span>
             </S.ActionButton>
           </S.HeaderItem>
 
@@ -77,15 +88,15 @@ const DraftEditor = () => {
         </S.DraftEditorBody>
       </S.DraftEditorContent>
 
-      {isViewing &&
-        draft.length > 0 &&
-        draft.map((item) => (
-          <S.DraftViewContainer>
-            <S.DraftViewContent key={item.id}>
-              <Paragraph text={item.text} />
-            </S.DraftViewContent>
-          </S.DraftViewContainer>
-        ))}
+      <S.DraftViewContainer
+        style={{ display: isViewing && draft.length > 0 ? "flex" : "none" }}
+      >
+        <S.DraftViewContent>
+          {isViewing &&
+            draft.length > 0 &&
+            draft.map((item) => <Paragraph key={item.id} text={item.text} />)}
+        </S.DraftViewContent>
+      </S.DraftViewContainer>
     </S.DraftEditorContainer>
   );
 };

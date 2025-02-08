@@ -5,24 +5,33 @@ export const DraftEditorContainer = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   background: #f2f2f2;
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
 `;
 
 export const DraftEditorContent = styled.div`
-  width: 85%;
-  height: 75%;
+  width: 45%;
+  height: 30rem;
   border-radius: 15px;
   border: 2px solid #adadad;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  margin: 50px 0px;
+
+  @media (max-width: 1200px) {
+    width: 80%;
+  }
 `;
 
 export const DraftEditorHeader = styled.div`
-  height: 6%;
+  height: 3rem;
   width: 100%;
   display: flex;
-  background:rgb(214, 225, 241);
+  background: rgb(198, 216, 243);
   border-radius: 15px 15px 0px 0px;
 `;
 
@@ -39,7 +48,7 @@ export const HeaderItem = styled.div<HeaderItemProps>`
 `;
 
 export const DraftEditorBody = styled.div`
-  height: 94%;
+  height: 90%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -49,17 +58,39 @@ export const DraftEditorBody = styled.div`
 `;
 
 export const DraftEditor = styled.textarea`
-  width: 75vw;
-  height: 55vh;
+  width: 40rem;
+  height: 25rem;
   border-radius: 15px;
   border: none;
-  padding: 20px;
+  padding: 10px;
   resize: none;
-
+  font-family: "Poppins";
+  
   &:focus {
     border: none;
     outline: none;
   }
+`;
+
+export const DraftViewContainer = styled.div` 
+   width: 45%;
+  display: flex;
+  flex-direction: column;
+  aling-items: center;
+  max-height: 80%;
+  border-radius: 15px;
+  border: 2px solid #adadad;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+
+  @media (max-width: 1200px) {
+    width: 80%;
+  }
+`;
+
+export const DraftViewContent = styled.div`
+ width: 98%;
+  overflow-y: auto;
+
 `;
 
 export const FontSelect = styled.select`
@@ -80,15 +111,18 @@ export const Option = styled.option`
   border-radius: 15px;
 `;
 
-
 export const ActionButton = styled.div`
   position: relative;
   display: inline-block;
-  cursor: pointer; 
+  cursor: pointer;
+  padding: 3px 10px;
+  border-radius: 5px;
 
   img {
-    width: 1.2rem; 
+    width: 1.2rem;
     height: 1.2rem;
+    object-fit: contain;
+    position: relative;
   }
 
   .tooltip {
@@ -104,7 +138,7 @@ export const ActionButton = styled.div`
     z-index: 1;
     bottom: 125%;
     left: 50%;
-    margin-left: -60px; 
+    margin-left: -60px;
     opacity: 0;
     transition: opacity 0.3s;
   }
@@ -112,5 +146,10 @@ export const ActionButton = styled.div`
   &:hover .tooltip {
     visibility: visible;
     opacity: 1;
+  }
+
+  &:active {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.2);
   }
 `;

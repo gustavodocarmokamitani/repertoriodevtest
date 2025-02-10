@@ -8,7 +8,6 @@ export const DraftEditorContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   background: #f2f2f2;
-  margin: 50px 0px;
 
   @media (max-width: 1200px) {
     flex-direction: column;
@@ -22,6 +21,7 @@ export const DraftEditorContent = styled.div`
   border-radius: 15px;
   border: 2px solid #adadad;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  margin: 50px 0px;
 
   @media (max-width: 1200px) {
     width: 80%;
@@ -89,7 +89,7 @@ export const DraftViewContainer = styled.div`
 `;
 
 export const DraftViewContent = styled.div`
-  width: 98%;
+  width: 98%;  
   overflow-y: auto;
 `;
 
